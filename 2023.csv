@@ -1,0 +1,120 @@
+name,ring,quadrant,isNew,description
+SLSA,Trial,Techniques,FALSE,"<p>As software continues to grow in complexity, the threat vector of software dependencies becomes increasingly challenging to guard against. Supply chain Levels for Software Artifacts, or <strong><a href=""https://slsa.dev/"">SLSA</a></strong> (pronounced ""salsa""), is a consortium-curated set of guidance for organizations to protect against supply chain attacks, evolved from internal guidance Google has been using for years. We appreciate that SLSA doesn't promise a ""silver bullet,"" tools-only approach to securing the supply chain, but it does provide a checklist of concrete threats and practices along a maturity model. The <a href=""https://slsa.dev/spec/v0.1/threats"">threat model</a> is easy to follow with real-world examples of attacks, and the <a href=""https://slsa.dev/spec/v0.1/requirements"">requirements</a> provide guidance to help organizations prioritize actions based on levels of increasing robustness to improve their supply chain security posture. Since we first mentioned it in the Radar, SLSA has added more detail around <a href=""https://slsa.dev/attestation-model"">software attestations</a> with examples to track concerns like <a href=""https://slsa.dev/provenance/v0.2"">build provenance</a>. Our teams have found SLSA to strike a nice balance between implementation guidance and higher-level awareness around supply chain threats.</p>"
+Software Bill of Materials,Trial,Techniques,FALSE,"<p>With continued pressure to keep systems secure and no reduction in the general threat landscape, a machine-readable <strong>Software Bill of Materials</strong> (SBOM) may help teams stay on top of security problems in the libraries that they rely on. Since the original <a href=""https://www.whitehouse.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/"">Executive Order</a> was published, the industry has gained clarity and understanding of what an SBOM is and how to create one; the National Institute of Standards and Technology (NIST), for example, now has more <a href=""https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/software-security-supply-chains-software-1"">specific advice</a> on how to comply with the order. We've had production experience using SBOMs on projects ranging from small companies to large multinationals and even government departments, and we're convinced they provide a benefit. More organizations and governments should consider requiring SBOMs for the software they use. The technique will be strengthened by the new tools that continue to emerge, such as the <a href=""https://firebase.google.com/docs/android/learn-more#bom"">Firebase Android BOM</a> that automatically aligns an application's library dependencies to those listed in the BOM.</p>"
+Retool,Trial,Platforms,FALSE,"<p>In previous editions, we’ve recommended assessing <a href=""/radar/techniques/bounded-low-code-platforms"">bounded low-code platforms</a> as a method for applying low-code solutions to specific use cases in very limited domains. We’ve seen some traction in this space, specifically with <a href=""https://retool.com/""><strong>Retool</strong></a>, a low-code platform that our teams use to build solutions for internal users, predominantly to query and visualize data. It allows them to produce non-business-critical read-only solutions faster. The main reported benefits of Retool are its UI components and its ability to be integrated quickly and easily with common data sources.</p>"
+Swift Package Manager,Adopt,languages-and-frameworks,FALSE,"<p>When introduced in 2014, Swift didn't come with a package manager. Later, <strong><a href=""https://github.com/apple/swift-package-manager"">Swift Package Manager</a></strong> was created as an official Apple open-source project, and this solution has continued to develop and mature. Our teams rely increasingly on SwiftPM because most packages can be included through it and the processes for both creators and consumers of packages have been streamlined. In the previous Radar, we recommended trialing, but we now believe it makes sense to select it as the default when starting new projects. For existing projects using tools like CocoaPods or <a href=""/radar/tools/carthage"">Carthage</a>, it might be worth a quick experiment to gauge the level of effort to migrate and to check whether all dependencies are available.</p>"
+PostgreSQL AWS RDS,Adopt,Platforms,FALSE,"<p><a href=""https://www.postgresql.org/about/"">PostgreSQL</a> is the default, standard database of choice here at Vibes, used widely across most teams. It is a powerful object relational database with decades of active development. It can be used for traditional relational (SQL) use cases as well as for non-relational needs (NoSQL) and can be configured to operate in a geographically distributed environment with bidirectional replication. Aligned with our principle of ""Build Differentiators"", we run PostgreSQL on AWS RDS instead of standalone to reduce the operational and administrative burden.</p>"
+AWS ElastiCache (Redis),Adopt,Platforms,FALSE,"Used widely across Platform and Connect for caching and, in some cases, as an in-memory database. Any standalone/self-hosted instances of Redis have been/are being migrated to ElastiCache, aligned with our architecture principle of Cloud Native."
+Confluent Cloud,Adopt,Platforms,FALSE,"Confluent Cloud provides a managed Apache Kafka service in addition to value added services such as managed connectors and KSQL. Kafka differs in its approach to messaging by building on the concept of an append-only log oriented towards streaming use cases. This architecture enables access to stream history, which can be valuable for certain use cases. Please refer to <a href=""#"">this guide</a> for guidance on when to choose Kafka over other messaging platforms. "
+Python,Adopt,languages-and-frameworks,FALSE,"Python is a general purpose programming language that is over 30 years old. It includes a broad standard library and employs dynamic types and garbage collection. At Vibes, Python is the language of choice for our data science and machine learning initiatives."
+Ruby,Adopt,languages-and-frameworks,FALSE,"Ruby is a high level, interpreted, general purpose programming language used widely and nearly exclusively across all of the Platform. "
+AWS API Gateway,Adopt,Platforms,FALSE,"AWS API Gateway is a fully managed service used to create, publish, maintain, monitor, and secure API's. It is used as a 'front door' to a backend service. At Vibes, a common pattern is to package code inside of a Lambda function and expose that via an API hosted on the the API Gateway. See <a href=""#"">this guide</a> for more details."
+Liquibase,Adopt,Tools,FALSE,Liquibase is a database change management tool providing version control and CD pipeline integration. It is used by the Core Messaging and Data teams. Most Ruby on Rails projects use Active Record Migrations rather than an external tool.
+open-metadata.org & https://datahubproject.io/docs/quickstart/,Assess,Tools,TRUE,Open source data Govenrnance and lineage tools that can be used to create lineage for data flow and Airflow orchestration.
+AWS Comprehend,Trial,,FALSE,AWS Comprehend is a managed natural language processing service that provides insights into text content using machine learning. The Data team uses Comprehend to analyze text message content.
+Docker,Adopt,,FALSE,"Docker is a software platform that allows you to build, test, and deploy applications by packaging software into standardized units called containers. Many teams use Docker for local development or as a deployment unit to a managed service such as AWS Fargate. ProServe has adopted this pattern as applications have been migrated from Heroku."
+AWS ECS/AWS Fargate,Adopt,Platforms,FALSE,AWS Fargate is a managed service provide on-demand compute resources for containers so developers can focus on deploying and managing applications rather than infrastructure. Fargate is most widely adopted by the ProServe team.
+Terraform,Adopt,Tools,FALSE,"Terraform is an open source infrastructure-as-code tool that enables infrastructure automation, version control, and change management. Vibes is moving away from CloudFormation to using Terraform exclusively."
+AWS Cloudformation,Hold,Tools,FALSE,"Cloudformation is a managed infrastructure-as-code service. In almost all cases, we prefer Terraform for infrastructure management and automation, but there are some use cases (stacksets) for which CloudFormation is a better tool (e.g., automatically deploying security policies and configurations to new accounts)."
+CAS,Adopt,Tools,FALSE,"Central Authentication Service (CAS) is a single sign-on protocol for web applications. CAS is at the heart of Vibes Security Services providing authentication for applications and API's. The CAS protocol is currently implemented through the CASino Rails/Ruby engine, with some customizations made through the years. We would like to retire this service but do not have any near term work on the roadmap to do so. Teams should continue to use Security Services for authentication and authorization needs and the use of CAS should be fairly opaque to consumers."
+CentOS,Hold,Platforms,FALSE,"CentoOS is a Linux distribution that is functionally compatible with Red Hat Linux Enterprise. Going forward, Vibes is no longer using CentOS and is using Amazon Linux instead."
+GitLab,Adopt,Tools,FALSE,"GitLab is a Devops platform centered on the git version control system. It is functionally similar to github, but is built around an open-source (community edition) core and can be hosted on-premises."
+GitLab-CI,Adopt,Tools,FALSE,Gitlab-CI is the continuous integration and continuous deployment facility provided by GitLab. This is the preferred CI/CD platform used at Vibes.
+Jenkins,Hold,Tools,FALSE,Retiring in favor of gitlab-ci
+Bamboo,Hold,Tools,FALSE,Retiring in favor of gitlab-ci
+chef,Hold,Tools,FALSE,"Desire is to retire chef and replace it mostly with immutable infrastructure, built around containers (for almost all workloads) or packer/cloud-init (for workloads that work best on EC2 instances, e.g. SMPP)."
+karafka,Adopt,languages-and-frameworks,FALSE,Kafka processing framework for Ruby
+Amazon Linux,Assess,Platforms,TRUE,"Amazon Linux is a GNU/Linux distribution maintained by AWS and provided at no cost. It is based on Fedora, so it is an evolutionary migration from CentOS rather than a complete shift in direction."
+RabbitMQ,Adopt,Platforms,FALSE,"RabbitMQ is an asynchronous messaging platform that is easy to use from a wide variety of platforms, including both Ruby and Java. It is used for messaging throughout platform applications and for messaging between platform and connectivity applications. We currently manage our own RabbitMQ clusters on EC2 instances."
+ActiveMQ,Hold,Platforms,FALSE,"ActiveMQ is an asynchronous messaging platform. It is currently used to facilitate cache invalidation using a pub/sub model; when there is a change to e.g. shortcode leases, an event is published to ActiveMQ and all interested applications refresh their cache of those leases."
+AWS MQ (RMQ),Assess,Platforms,TRUE,"AWS MQ provides managed open-source message brokers. We will evaluate AWS MQ's managed rabbitmq service as a replacement for EC2-hosted RabbitMQ, aligned with our architecture principle of Cloud Native."
+AWS MQ (AMQ),Assess,Platforms,TRUE,"AWS MQ provides managed open-source message brokers. We will evaluate AWS MQ's managed activemq service as a replacement for EC2-hosted activemq, aligned with our architecture principle of Cloud Native."
+PostgreSQL,Hold,Platforms,FALSE,"PostgreSQL RDS is strongly preferred over EC2-hosted PostgreSQL, in line with our architecture principle of Cloud Native."
+MySQL,Hold,Platforms,FALSE,Most applications have been migrated from MySQL to PostgreSQL. Campaign Manager/Backbone continue to use MySQL. EC2-hsoted MySQL is deprecated in favor of RDS.
+MySQL AWS RDS,Hold,Platforms,TRUE,Most applications have been migrated from MySQL to PostgreSQL. Campaign Manager/Backbone continue to use MySQL.
+HornetQ,Adopt,Platforms,FALSE,HornetQ is an asynchronous messaging platform. It is used by Connect applications.
+Java,Adopt,languages-and-frameworks,FALSE,
+Redis (EC2),Hold,Platforms,FALSE,"EC2-hosted redis is still deployed in the legacy EU environment, but we are actively migrating these redis instances to elsaticache."
+SonarQube,Adopt,Tools,FALSE,
+Spring Boot,Adopt,Tools,FALSE,Used widely across Connect and Push for building Java applications
+Heroku,Hold,Platforms,FALSE,Application stack hosting platform in use by multiple proserve applications.
+Rollbar (Heroku),Hold,Tools,FALSE,Deployment tracking and error reporting integrated with Heroku in use by multiple proserve applications.
+Papertrail (Heroku),Hold,Tools,FALSE,Logging application integrated with Heroku and in use by multiple proserve applications.
+Postfix,Hold,Platforms,FALSE,SMTP e-mail infrastructure for platform and infrastructure e-mail messaging.
+Cisco ASA/Anyconnect,Hold,Platforms,FALSE,"Remote access, client VPN platform for private network, data center network access. "
+AWS Route53,Adopt,Platforms,FALSE,AWS managed DNS platform used by internal and customer facing application hostname resolution.
+AWS DynamoDB,Adopt,Platforms,FALSE,"NoSQL database service used by infrastructure terraform state management, SFMC integration, Journey Builder, Text2Go applications ."
+AWS S3,Adopt,Platforms,FALSE,"Object storage service used by various internal, platform, connect and core applications for logging and asset storage. "
+NGINX,Hold,Platforms,FALSE,Nginx is used on EC2-hosted load balancer servers. This is deprecated in favor of AWS Elastic Load Balancers (for most purposes) or AWS API Gateway (for endpoints that must support mutual TLS authentication)
+AWS Elastic Load Balancer,Adopt,Platforms,FALSE,"Managed application and network load balancer service for intelligent traffic routing to application servers and services in use by internal, platform and connect applications."
+AWS Device Farm,Adopt,Tools,FALSE,Mobile and web application testing platform in use by platform team.
+AWS Secrets Manager,Adopt,Platforms,FALSE,"Managed credential management platform for secure storage and retrieval of application secrets in use by platform, connect, proserve, analytics and integrations applications. "
+AWS Lambda,Adopt,Platforms,FALSE,"Managed function execution as a service platform in use by various workflows for internal, platform, analytics and integrations applications."
+AWS Managed Kakfa,Hold,Platforms,FALSE,"AWS Managed Streaming for Apache Kafka (MSK) is a fully managed, highly available Kafka service. MSK should no longer be used as Vibes is consolidating all Kafka workloads on Confluent Cloud. "
+AWS Certificate Manager,Adopt,Platforms,FALSE,AWS managed PKI platform in use for issuing SSL/TLS certificates for AWS load balancer certificates used by platform and connect applications.
+AWS Certificate Manager PCA,Adopt,Platforms,FALSE,ACM Private CA is preferred over other CA implementations for internal-use certificates
+AWS Cloudwatch,Adopt,Platforms,FALSE,"AWS Logging, event and scheduled task service used by various infrastructure, platform and connect applications to manage SLAs."
+New Relic APM,Adopt,Platforms,FALSE,"Application resource and event monitoring and alerting platform in use by infrastructure, platform and connect applications to manage SLAs."
+AWS Backup,Adopt,Tools,FALSE,"AWS service for backup currently in use for backing up internal application EC2 instances and internal application, platform and connect EFS volumes."
+AWS Elastic File System,Adopt,Platforms,FALSE,"AWS managed file system platform in use by internal, platform and connect applications."
+AWS Kinesis,Adopt,Platforms,FALSE,AWS streaming solution used in Data Ingestion
+AWS Config,Adopt,Tools,FALSE,
+AWS Sagemaker,Adopt,Tools,FALSE,AWS Machine Learning platform.
+AWS GuardDuty,Adopt,Tools,FALSE,
+AWS SQS,Adopt,Platforms,FALSE,AWS Queue service. In use in AWS MWAA internally and E&I applications.
+AWS Glue,Adopt,Platforms,FALSE,AWS serverless data integration service used by data ingestion to run extracts from source database.
+AWS Security Hub,Adopt,Tools,FALSE,
+AWS Firewall,Adopt,Platforms,FALSE,Network security service being used for internal traffic inspection and control currently between Telnyx DX and messaging connections.
+Okta,Adopt,Platforms,FALSE,"Single sign-on/identity federation platform used for internal, lob applications."
+MS Active Directory,Hold,Platforms,FALSE,"Identity management and authentication platform used for internal, lob applications access."
+MS O365/EO/AzureAD,Adopt,Platforms,FALSE,E-mail and business productivity application suite.
+AWS IAM,Adopt,Platforms,FALSE,Identity and access management platform used by AWS for authentication and access control to AWS services.
+Tailscale,Trial,Platforms,TRUE,"Remote access, client VPN platform for private network, data center network access. "
+LetsEncrypt,Adopt,Platforms,FALSE,"The Let's Encrypt service provides no-cost TLS certificates with automatic renewal for public HTTPS endpoints. Vibes uses Let's Encrypt for white label certificates and URL Shortener vanity domains. It is a viable alternative to AWS Certificate Manager, when ACM cannot easily be used."
+SFTP,Hold,Platforms,FALSE,"File transfer, file sharing service running in EC2 in use for posting extracts for customer retrieval, customers uploading subscriber lists and CPA requests."
+AWS Transfer Service,Trial,Platforms,TRUE,"File transfer, file sharing managed service in use for posting extracts for customer retrieval, customers uploading subscriber lists and CPA requests."
+AWS Storage Gateway,Hold,Platforms,FALSE,AWS storage access platform providing NFS access support to S3 storage for platform Google Wallet and Passbook application assets.
+Atlassian OpsGenie,Adopt,Platforms,FALSE,"Managed alerting and on-call management platform integrated with AWS cloudwatch and New Relic for alert notification and escalation in use for internal, platform and connect applications."
+Slack,Adopt,Platforms,FALSE,"Team communications tool being used for team collaboration, support, incident and change management communications."
+Atlassian StatusPage,Adopt,Platforms,FALSE,Managed status and event notification service for communicating availability and maintenance notifications of platform and connect services to customers.
+AWS EC2,Adopt,Platforms,FALSE,"AWS virtual machine platform in use enterprise wide for hosting internal, platform and connect applications."
+Cisco IOSXE/IPSec,Adopt,Platforms,FALSE,Network infrastructure platform providing secure communications connectivity to carrier and customers not currently supporting direct TLS connectivity.
+AWS DirectConnect/BGP,Adopt,Platforms,FALSE,Network infrastructure platform provided by AWS delivering private network connectivity. Currently in trial use by Telnyx.
+AWS Systems Manager,Trial,Platforms,TRUE,
+OpenSSL/TLS,Adopt,Platforms,FALSE,
+AWS Cloudfront,Adopt,Platforms,FALSE,"Used across all teams for content delivery, caching, etc."
+Snowflake,Adopt,Platforms,FALSE,Cloud database. Used for the EDW and for the Vibes Index database.
+Tray.io,Adopt,Platforms,FALSE,"Used by Professional Services for custom projects in addition to building reusable integrations with other SaaS product. Can also be used to close gaps in the 'seams' of our platform. For example, sending a text message via the Event API when someone submits a form on a Mobile Page."
+Wyng,Adopt,Platforms,FALSE,Used by Professional Services for custom micro experiences when the request goes beyond the limits of Mobile Pages capabilities.
+Looker,Adopt,Platforms,FALSE,Used internally for data analytics as well as embedded in our platform for customers analytics use cases.
+ReactJS,Adopt,languages-and-frameworks,FALSE,
+iOS Swift/ObjectiveC,Adopt,languages-and-frameworks,FALSE,
+Android Java/Kotlin,Adopt,languages-and-frameworks,FALSE,
+ReactNative,Adopt,languages-and-frameworks,FALSE,
+Cordova,Adopt,languages-and-frameworks,FALSE,
+iOS,Adopt,Platforms,FALSE,
+Android,Adopt,Platforms,FALSE,
+Airflow,Hold,Platforms,FALSE,In house instance of Airflow. This will be decommissioned after we are fully migrated to AWS MWAA.
+AWS MWAA,Adopt,Platforms,FALSE,AWS managed Airflow service. Vibes uses Airflow for ETL processing.
+Paperclip,Adopt,Platforms,FALSE,
+Apache Spark,Assess,Tools,FALSE,Big data tool that can be used to data engineering and machine learning with data/delta lake.
+Jboss,Hold,Tools,FALSE,Messaging team uses to host some applications
+Tomcat,Hold,Tools,FALSE,Messaging team uses to host some applications
+Groovy,Adopt,languages-and-frameworks,FALSE,
+Ruby on Rails,Adopt,languages-and-frameworks,FALSE,"Ruby web application framework, used throughout platform applications."
+Backbone.js,Hold,languages-and-frameworks,FALSE,"Used primarily in Campaign Manager, Wallet Manager, and Dashboard"
+GoDaddy TLS certificates,Hold,Platforms,FALSE,"Deprecated in favor of ACM PCA (for internal certs), ACM, and Let's Encrypt"
+Quarkus,Adopt,Tools,FALSE,"Cloud native java based alternative to Spring Boot, currently used only in Mombasa for push token import. The only reason why we didn't use it in app-admin was because it doesn't have native support for CAS. For the performance and cost benefits of using the native images it generates, this is a good tool for any backend product that needs to be built which doesn't require frontend integratoin with CAS."
+Node.js,Adopt,languages-and-frameworks,FALSE,"Node.js® is an open-source, cross-platform JavaScript runtime environment. Used by E&I applications running on AWS Lambda."
+AWS Step Functions,Adopt,Platforms,FALSE,"AWS Step Functions is a visual workflow service that helps developers use AWS services to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning (ML) pipelines.
+Used by E&I SFMC integration to orchestrate multi-step data sync process."
+AWS API Gateway (Lambda Authorizer),Trial,Platforms,FALSE,"Not sure this goes here, adding for discussion.
+
+Token based authorization for API Gateway endpoints.
+Used in combination with a JWT generation application (ei-authorization-server) wrapping Security Services API "
+AWS X-Ray,Trial,Platforms,FALSE,"AWS X-Ray is a service that collects data about requests that your application serves, and provides tools that you can use to view, filter, and gain insights into that data to identify issues and opportunities for optimization. For any traced request to your application, you can see detailed information not only about the request and response, but also about calls that your application makes to downstream AWS resources, microservices, databases, and web APIs.
+Used by E&I apps for tracing and debugging."
+AWS Cloudwatch EMF,Trial,Tools,FALSE,"The CloudWatch embedded metric format (EMF) is a JSON specification used to instruct CloudWatch Logs to automatically extract metric values embedded in structured log events. You can use CloudWatch to graph and create alarms on the extracted metric values.
+Used by E&I apps for publishing metrics to Clouwdwatch for monitoring and alerting."
+AWS SAM,Adopt,Tools,FALSE,"The AWS Serverless Application Model (SAM) is an open-source framework for building serverless applications. It provides shorthand syntax to express functions, APIs, databases, and event source mappings. With just a few lines per resource, you can define the application you want and model it using YAML. During deployment, SAM transforms and expands the SAM syntax into AWS CloudFormation syntax, enabling you to build serverless applications faster.
+Used by E&I applications running on Lambda. We've found SAM a better experience than Terraform for deploying Serverless apps."
